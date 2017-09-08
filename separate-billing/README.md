@@ -1,15 +1,10 @@
 # Separate Billing
 
-Get separate billing based on the prefix on resource so that the Catalyst Cloud
-customer can easily charge their customer based on usage.
+This script provides a means to get itemised billing based on the prefix of a set of resources so that a Catalyst Cloud customer can easily on-charge their hosted customers based on that customers usage.
 
-> Note: This script is just a reference about how to consume Catalyst Cloud
-billing API to get a separate billing based on the latest invoice. But it's
-really easy to change the code to meet the other requirements.
+> Note: This script is meant as a reference for how to consume the Catalyst Cloud billing API to get a separate billing based on the latest invoice. It should be fairly simple to change the code to meet the other requirements.
 
 ## How to use
-
-To use this script please set appropriate prefix for your resource name.
 
 ### Preparing your local environment
 
@@ -22,9 +17,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Get billing based on the prefix of customer
+### Get billing information based on the prefix of customer
 
-Source an openrc file with your credentials to wccess the Catalyst Cloud, as
+Source an openrc file with your credentials to access the Catalyst Cloud, as
 described at
 http://docs.catalystcloud.io/getting-started/cli.html#source-an-openstack-rc-file.
 
@@ -37,11 +32,13 @@ venv/bin/activate`).
 
 Sample usage:
 
+To retrieve the current billing information for a set of resources that have the prefix **customer-wcc**, the command will look like this:
+
 ``` bash
 ./separate-billing.py show --prefix customer-wcc
 ```
 
-The response will be like:
+The output will look similar to this:
 
 ```
 +-------------------------------+--------+----------+---------+-------+
@@ -58,10 +55,10 @@ The response will be like:
 Total cost of customer [customer-wcc] for the month of [2017-07-31] is : $81.69
 ```
 
-The parameter **prefix** is used to filter the invoice to get the separate
-billing for different customers.
+### Get billing information when there are no unique resource prefixes defined
+The parameter **prefix** is used to filter the invoice to get the separate billing for different customers. If resources have been created without specific prefixes it is still possible to query the billing data for the entire project. 
 
-> Note: To view the full invoice, just issue command as below:
+> Note: To view the full invoice, just issue the command without a specific prefix as shown here: 
 ``` bash
 ./separate-billing.py show --prefix ''
 ```
